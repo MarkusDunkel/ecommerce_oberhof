@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react';
 import './styles.scss';
-// import Logo from './../../assets/logo.png';
+import Logo from './../../assets/logo.png';
 import { Link } from 'react-router-dom';
-// import { auth } from './../../firebase/utils'
+import { auth } from '../../firebase/utils';
 
 interface HeaderProps {
     currentUser: null | string;
@@ -15,15 +15,13 @@ const Header = (props: HeaderProps) => {
         <header className="header">
             <div className="wrap">
                 <div className="logo">
-                    {/* <Link to="/">
+                    <Link to="/">
                         <img src={Logo} alt="SimpleTut Logo" />
-                    </Link> */}
+                    </Link>
                 </div>
 
                 <div className="callToActions">
-                    Call to Actions
-
-                    {/* {currentUser && (
+                    {currentUser && (
                         <ul>
                             <li>
                                 <span onClick={() => auth.signOut()}>
@@ -49,7 +47,7 @@ const Header = (props: HeaderProps) => {
                             </li>
                         </ul>
                     )
-                    } */}
+                    }
                 </div>
             </div>
         </header>
