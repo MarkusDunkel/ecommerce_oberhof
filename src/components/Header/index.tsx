@@ -6,11 +6,14 @@ import { auth } from '../../firebase/utils';
 
 interface HeaderProps {
     currentUser: null | string;
+    isMobile?: undefined | Boolean;
+    shopLink?: Boolean;
     children: ReactNode;
 }
 
 const Header = (props: HeaderProps) => {
     const { currentUser } = props;
+    const { shopLink } = props || { shopLink: false };
     return (
         <header className="header">
             <div className="wrap">
@@ -21,8 +24,21 @@ const Header = (props: HeaderProps) => {
                 </div>
 
                 <div className="callToActions">
+
                     {currentUser && (
                         <ul>
+                            {shopLink && (
+                                <li>
+                                    <div className='positionButton'>
+                                        <Link to="/shop/">
+                                            <div className='fancyButton'>
+                                                Bestellung aufgeben
+                                            </div>
+                                        </Link>
+                                    </div>
+                                </li>
+
+                            )}
                             <li>
                                 <span onClick={() => auth.signOut()}>
                                     LogOut
@@ -32,9 +48,18 @@ const Header = (props: HeaderProps) => {
                     )}
 
                     {!currentUser && (
-
-
                         <ul>
+                            {shopLink && (
+                                <li>
+                                    <div className='positionButton'>
+                                        <Link to="/shop/">
+                                            <div className='fancyButton'>
+                                                Bestellung aufgeben
+                                            </div>
+                                        </Link>
+                                    </div>
+                                </li>
+                            )}
                             <li>
                                 <Link to="/registration">
                                     Register
@@ -50,7 +75,7 @@ const Header = (props: HeaderProps) => {
                     }
                 </div>
             </div>
-        </header>
+        </header >
     )
 }
 

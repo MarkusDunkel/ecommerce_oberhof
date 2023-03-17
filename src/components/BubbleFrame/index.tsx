@@ -22,8 +22,8 @@ const BubbleFrame = ({ id, image, width, height, left, top, delay }: BubbleFrame
                 <svg width="100%" height="100%">
                     <defs>
                         <mask id={id}>
-                            <rect width="100%" height="100%" fill="white" />
-                            <ellipse className="ellipse" fill="black" style={{ animationDelay: delay }} />
+                            <rect width="100%" height="100%" fill="white" key={Math.random()} />
+                            <ellipse className="ellipse" fill="black" style={{ animationDelay: delay }} key={Math.random()} />
                         </mask>
                     </defs>
 

@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react';
-import Footer from '../components/Footer';
 import Header from './../components/Header';
 
 interface MainLayoutProps {
@@ -14,7 +13,7 @@ const MainLayout = (props: MainLayoutProps) => {
             <div className="main" >
                 {props.children}
             </div>
-            <Footer />
+            {/* <Footer /> */}
         </div>
     );
 }

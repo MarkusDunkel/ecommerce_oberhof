@@ -5,15 +5,15 @@
     .wrap {
         position: relative;
         height: 100%;
-        max-width: 1450px;
-        margin: 0 auto;
+        // max-width: 1450px;
+        margin: 0 5%;
     }
 
     .logo {
         width: 130px;
         position: absolute;
         left: 10px;
-        top: 50%;
+        top: 80%;
         -webkit-transform: translateY(-50%);
         -moz-transform: translateY(-50%);
         transform: translateY(-50%);
@@ -36,14 +36,13 @@
 
         ul,
         li {
-            // margin: 0;
             padding: 0;
         }
 
         li {
             display: inline-block;
             list-style-type: none;
-            margin-right: 1.5rem;
+            margin-right: 2rem;
 
             &:last-child {
                 margin-right: 0;
@@ -55,6 +54,22 @@
                 color: rgb(0, 0, 0);
                 text-decoration: none;
                 text-transform: uppercase;
+            }
+
+            .fancyButton {
+                display: inline;
+                font-size: 1.8rem;
+                padding: 1rem;
+                margin: 0;
+                border-radius: 50px;
+                color: white;
+                background-color: rgb(21, 92, 207);
+                margin-right: 10rem;
+
+                a {
+                    color: rgb(255, 255, 255);
+                }
+
             }
         }
 

@@ -1,17 +1,18 @@
 import React, { ReactNode } from 'react';
 import Header from './../components/Header';
-import Footer from '../components/Footer';
 
 interface HomepageLayoutProps {
     currentUser: null | string;
+    isMobile: undefined | Boolean;
     children: ReactNode;
 }
 const HomepageLayout = (props: HomepageLayoutProps) => {
+    const shopLink = true;
     return (
-        <div className="fullHeight" >
-            <Header {...props} />
+        <div className="fullHeight">
+            <Header {...props} shopLink={shopLink} />
             {props.children}
-            <Footer />
+            {/* <Footer /> */}
         </div >
     );
 }
