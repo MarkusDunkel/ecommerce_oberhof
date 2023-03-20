@@ -14,47 +14,62 @@ const initialState = { currentUser: null };
 
 interface UserState { currentUser: null | any };
 
-const viewportWidth = window.innerWidth;
-const viewportHeight = window.innerHeight
+const isViewportWidthInitial = window.innerWidth;
+const isViewportHeightInitial = window.innerHeight
 
 let isPortraitInitial: undefined | Boolean = undefined;
-viewportWidth < viewportHeight ? isPortraitInitial = true : isPortraitInitial = false;
+isViewportWidthInitial < isViewportHeightInitial ? isPortraitInitial = true : isPortraitInitial = false;
 
 let isMobileInitial: undefined | Boolean = undefined;
-viewportWidth < 600 ? isMobileInitial = true : isMobileInitial = false;
+isViewportWidthInitial < 600 ? isMobileInitial = true : isMobileInitial = false;
 
-function useFormatState() {
-  const [isPortrait, setIsPortrait] = useState(isPortraitInitial);
+function useResizeEvent() {
+  const [isViewportSize, setViewportSize] = useState([isViewportWidthInitial, isViewportHeightInitial]);
   window.onresize = () => {
-    let ip = undefined;
-    window.innerWidth < window.innerHeight ? ip = true : ip = false;
-    setIsPortrait(ip);
+    setViewportSize([
+      window.innerWidth,
+      window.innerHeight
+    ]);
   };
+  return (isViewportSize);
+}
+
+function useFormatState(isViewportSize: number[]): undefined | Boolean {
+  const [isPortrait, setIsPortrait] = useState(isPortraitInitial);
+  useEffect(() => {
+    let ip = undefined;
+    isViewportSize[0] < isViewportSize[1] ? ip = true : ip = false;
+    setIsPortrait(ip)
+  }, [isViewportSize]
+  )
 
   return isPortrait;
 }
 
-function useMobileState() {
+function useMobileState(isViewportSize: number[]): undefined | Boolean {
   const [isMobile, setIsMobile] = useState(isMobileInitial);
-  window.onresize = () => {
+  useEffect(() => {
     let im = undefined;
-    window.innerWidth < 400 ? im = true : im = false;
-    setIsMobile(im);
-  };
+    isViewportSize[0] < 600 ? im = true : im = false;
+    setIsMobile(im)
+  }, [isViewportSize]
+  )
 
   return isMobile;
 }
 
 
 function App() {
-  const isPortrait = useFormatState();
-  const isMobile = useMobileState();
+  const isViewportSize = useResizeEvent();
+  const isPortrait = useFormatState(isViewportSize);
+  const isMobile = useMobileState(isViewportSize);
 
-  let root = document.documentElement;
+  const root = document.documentElement;
   isMobile ?
-    (root.style.setProperty('--font-size', 5 + "px"))
+    (root.style.setProperty('--font-size', 8 + "px"))
     :
     (root.style.setProperty('--font-size', 10 + "px"))
+
 
   const [userState, setUserState] = useState<UserState>(initialState);
 

@@ -14,12 +14,18 @@ interface HeaderProps {
 const Header = (props: HeaderProps) => {
     const { currentUser } = props;
     const { shopLink } = props || { shopLink: false };
+    const { isMobile } = props;
+
+    let logoWidth = (isMobile) ? '130px' : '130px';
+    let logoLeft = (isMobile) ? '-23px' : '5px';
+    let logoTop = (isMobile) ? '220%' : '80%';
+
     return (
         <header className="header">
             <div className="wrap">
-                <div className="logo">
+                <div className="logo" style={{ width: logoWidth, left: logoLeft, top: logoTop }}>
                     <Link to="/">
-                        <img src={Logo} alt="SimpleTut Logo" />
+                        <img src={Logo} alt="Oberhof Logo" />
                     </Link>
                 </div>
 
@@ -32,7 +38,7 @@ const Header = (props: HeaderProps) => {
                                     <div className='positionButton'>
                                         <Link to="/shop/">
                                             <div className='fancyButton'>
-                                                Bestellung aufgeben
+                                                Bestellen
                                             </div>
                                         </Link>
                                     </div>
@@ -54,7 +60,7 @@ const Header = (props: HeaderProps) => {
                                     <div className='positionButton'>
                                         <Link to="/shop/">
                                             <div className='fancyButton'>
-                                                Bestellung aufgeben
+                                                Bestellung
                                             </div>
                                         </Link>
                                     </div>

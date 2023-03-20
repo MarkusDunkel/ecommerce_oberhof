@@ -10,10 +10,12 @@
     }
 
     .logo {
-        width: 130px;
+        // width: 130px;
+        // width: var(--width);
+        // background-color: yellow;
         position: absolute;
-        left: 10px;
-        top: 80%;
+        // left: 10px;
+        // top: 80%;
         -webkit-transform: translateY(-50%);
         -moz-transform: translateY(-50%);
         transform: translateY(-50%);
@@ -39,10 +41,18 @@
             padding: 0;
         }
 
+        ul {
+            float: right;
+        }
+
         li {
             display: inline-block;
             list-style-type: none;
             margin-right: 2rem;
+
+            &:first-child {
+                margin-right: 8rem;
+            }
 
             &:last-child {
                 margin-right: 0;
@@ -58,16 +68,16 @@
 
             .fancyButton {
                 display: inline;
+                align-self: left;
                 font-size: 1.8rem;
                 padding: 1rem;
-                margin: 0;
                 border-radius: 50px;
                 color: white;
                 background-color: rgb(21, 92, 207);
-                margin-right: 10rem;
 
                 a {
                     color: rgb(255, 255, 255);
+                    text-transform: uppercase;
                 }
 
             }
