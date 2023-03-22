@@ -16,9 +16,9 @@ const Header = (props: HeaderProps) => {
     const { shopLink } = props || { shopLink: false };
     const { isMobile } = props;
 
-    let logoWidth = (isMobile) ? '130px' : '130px';
+    let logoWidth = (isMobile) ? '100px' : '130px';
     let logoLeft = (isMobile) ? '-23px' : '5px';
-    let logoTop = (isMobile) ? '220%' : '80%';
+    let logoTop = (isMobile) ? '80%' : '80%';
 
     return (
         <header className="header">
@@ -60,7 +60,7 @@ const Header = (props: HeaderProps) => {
                                     <div className='positionButton'>
                                         <Link to="/shop/">
                                             <div className='fancyButton'>
-                                                Bestellung
+                                                Bestellen
                                             </div>
                                         </Link>
                                     </div>

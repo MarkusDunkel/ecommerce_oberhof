@@ -17,8 +17,16 @@ interface UserState { currentUser: null | any };
 const isViewportWidthInitial = window.innerWidth;
 const isViewportHeightInitial = window.innerHeight
 
-let isPortraitInitial: undefined | Boolean = undefined;
-isViewportWidthInitial < isViewportHeightInitial ? isPortraitInitial = true : isPortraitInitial = false;
+let isFormatInitial: undefined | string = undefined;
+if (isViewportWidthInitial > 2 * isViewportHeightInitial) {
+  isFormatInitial = 'landscape';
+} else if (isViewportWidthInitial > isViewportHeightInitial) {
+  isFormatInitial = 'squareLandscape';
+} else if (isViewportWidthInitial > 2 * isViewportHeightInitial) {
+  isFormatInitial = 'squarePortrait';
+} else {
+  isFormatInitial = 'portrait';
+}
 
 let isMobileInitial: undefined | Boolean = undefined;
 isViewportWidthInitial < 600 ? isMobileInitial = true : isMobileInitial = false;
@@ -34,16 +42,20 @@ function useResizeEvent() {
   return (isViewportSize);
 }
 
-function useFormatState(isViewportSize: number[]): undefined | Boolean {
-  const [isPortrait, setIsPortrait] = useState(isPortraitInitial);
+function useFormatState(isViewportSize: number[]): undefined | string {
+  const [isFormat, setIsFormat] = useState(isFormatInitial);
   useEffect(() => {
-    let ip = undefined;
-    isViewportSize[0] < isViewportSize[1] ? ip = true : ip = false;
-    setIsPortrait(ip)
-  }, [isViewportSize]
-  )
-
-  return isPortrait;
+    if (isViewportSize[0] > 2 * isViewportSize[1]) {
+      setIsFormat('landscape');
+    } else if (isViewportSize[0] > isViewportSize[1]) {
+      setIsFormat('squareLandscape');
+    } else if (isViewportSize[0] > .5 * isViewportSize[1]) {
+      setIsFormat('squarePortrait');
+    } else {
+      setIsFormat('portrait');
+    }
+  }, [isViewportSize]);
+  return isFormat;
 }
 
 function useMobileState(isViewportSize: number[]): undefined | Boolean {
@@ -61,7 +73,7 @@ function useMobileState(isViewportSize: number[]): undefined | Boolean {
 
 function App() {
   const isViewportSize = useResizeEvent();
-  const isPortrait = useFormatState(isViewportSize);
+  const isFormat = useFormatState(isViewportSize);
   const isMobile = useMobileState(isViewportSize);
 
   const root = document.documentElement;
@@ -101,23 +113,23 @@ function App() {
       <Routes>
         <Route path="/" element={(
           <HomepageLayout isMobile={isMobile} currentUser={currentUser}>
-            <Homepage isPortrait={isPortrait} />
+            <Homepage isFormat={isFormat} />
           </HomepageLayout>
         )} />
         <Route path="/shop" element={(
-          <MainLayout currentUser={currentUser}>
+          <MainLayout currentUser={currentUser} isMobile={isMobile}>
             <Shop />
           </MainLayout>
         )} />
         <Route path="/registration" element={
           currentUser ? (<Navigate replace to={"/"} />) :
-            (<MainLayout currentUser={currentUser}>
+            (<MainLayout currentUser={currentUser} isMobile={isMobile}>
               <Registration />
             </MainLayout>)
         } />
         <Route path="/login" element={
           !currentUser ?
-            (<MainLayout currentUser={currentUser}>
+            (<MainLayout currentUser={currentUser} isMobile={isMobile}>
               <Login />
             </MainLayout>) :
             (<Navigate replace to={"/"} />)
