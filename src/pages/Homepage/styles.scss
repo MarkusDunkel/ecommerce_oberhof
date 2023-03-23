@@ -3,8 +3,21 @@
 
     .canvas {
         position: relative;
-        background-color: none;
-        height: 100%
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+
+        .homeText {
+            display: block;
+            margin: 5vw;
+            overflow: hidden;
+            padding: 2%;
+            font-family: 'Dawning of a New Day', cursive;
+            z-index: 1;
+        }
+
+        ;
     }
 
 

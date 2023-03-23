@@ -18,7 +18,7 @@ const BubbleFrame = ({ id, image, width, height, left, top, delay }: BubbleFrame
             width: width,
             height: height
         }}>
-            <div className="image" style={{ backgroundImage: "url(" + image + ")" }}>
+            <div className="image" style={{ backgroundImage: "url(" + image + ")", opacity: 1 }}>
                 <div style={{ width: 'calc(100% + 3px)', transform: 'translateX(-1.5px) translateY(-1.5px)', height: 'calc(100% + 3px)' }}>
                     <svg width="100%" height="100%">
                         <defs>
@@ -27,7 +27,6 @@ const BubbleFrame = ({ id, image, width, height, left, top, delay }: BubbleFrame
                                 <ellipse className="ellipse" fill="black" style={{ animationDelay: delay }} key={Math.random()} />
                             </mask>
                         </defs>
-
                         <rect x="0" y="0" width="100%" height="100%" fill="white" mask={`url(#${id})`}></rect>
                     </svg>
                 </div>

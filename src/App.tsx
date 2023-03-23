@@ -45,7 +45,7 @@ function useResizeEvent() {
 function useFormatState(isViewportSize: number[]): undefined | string {
   const [isFormat, setIsFormat] = useState(isFormatInitial);
   useEffect(() => {
-    if (isViewportSize[0] > 2 * isViewportSize[1]) {
+    if (isViewportSize[0] > 1.5 * isViewportSize[1]) {
       setIsFormat('landscape');
     } else if (isViewportSize[0] > isViewportSize[1]) {
       setIsFormat('squareLandscape');
@@ -113,7 +113,7 @@ function App() {
       <Routes>
         <Route path="/" element={(
           <HomepageLayout isMobile={isMobile} currentUser={currentUser}>
-            <Homepage isFormat={isFormat} />
+            <Homepage isFormat={isFormat} isViewportSize={isViewportSize} />
           </HomepageLayout>
         )} />
         <Route path="/shop" element={(

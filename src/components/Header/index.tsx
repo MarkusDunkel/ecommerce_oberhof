@@ -21,67 +21,69 @@ const Header = (props: HeaderProps) => {
     let logoTop = (isMobile) ? '80%' : '80%';
 
     return (
-        <header className="header">
-            <div className="wrap">
-                <div className="logo" style={{ width: logoWidth, left: logoLeft, top: logoTop }}>
-                    <Link to="/">
-                        <img src={Logo} alt="Oberhof Logo" />
-                    </Link>
-                </div>
+        <div className="headerPlaceholder">
+            <header className="header">
+                <div className="wrap">
+                    <div className="logo" style={{ width: logoWidth, left: logoLeft, top: logoTop }}>
+                        <Link to="/">
+                            <img src={Logo} alt="Oberhof Logo" />
+                        </Link>
+                    </div>
 
-                <div className="callToActions">
+                    <div className="callToActions">
 
-                    {currentUser && (
-                        <ul>
-                            {shopLink && (
+                        {currentUser && (
+                            <ul>
+                                {shopLink && (
+                                    <li>
+                                        <div className='positionButton'>
+                                            <Link to="/shop/">
+                                                <div className='fancyButton'>
+                                                    Bestellen
+                                                </div>
+                                            </Link>
+                                        </div>
+                                    </li>
+
+                                )}
                                 <li>
-                                    <div className='positionButton'>
-                                        <Link to="/shop/">
-                                            <div className='fancyButton'>
-                                                Bestellen
-                                            </div>
-                                        </Link>
-                                    </div>
+                                    <span onClick={() => auth.signOut()}>
+                                        LogOut
+                                    </span>
                                 </li>
+                            </ul>
+                        )}
 
-                            )}
-                            <li>
-                                <span onClick={() => auth.signOut()}>
-                                    LogOut
-                                </span>
-                            </li>
-                        </ul>
-                    )}
-
-                    {!currentUser && (
-                        <ul>
-                            {shopLink && (
+                        {!currentUser && (
+                            <ul>
+                                {shopLink && (
+                                    <li>
+                                        <div className='positionButton'>
+                                            <Link to="/shop/">
+                                                <div className='fancyButton'>
+                                                    Bestellen
+                                                </div>
+                                            </Link>
+                                        </div>
+                                    </li>
+                                )}
                                 <li>
-                                    <div className='positionButton'>
-                                        <Link to="/shop/">
-                                            <div className='fancyButton'>
-                                                Bestellen
-                                            </div>
-                                        </Link>
-                                    </div>
+                                    <Link to="/registration">
+                                        Register
+                                    </Link>
                                 </li>
-                            )}
-                            <li>
-                                <Link to="/registration">
-                                    Register
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/login">
-                                    Login
-                                </Link>
-                            </li>
-                        </ul>
-                    )
-                    }
+                                <li>
+                                    <Link to="/login">
+                                        Login
+                                    </Link>
+                                </li>
+                            </ul>
+                        )
+                        }
+                    </div>
                 </div>
-            </div>
-        </header >
+            </header >
+        </div>
     )
 }
 
