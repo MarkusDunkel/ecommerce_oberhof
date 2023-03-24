@@ -9,6 +9,7 @@ import { auth, handleUserProfile } from './firebase/utils';
 import './default.scss';
 import Homepage from './pages/Homepage';
 import Shop from './pages/Shop';
+import Recovery from './pages/Recovery';
 
 const initialState = { currentUser: null };
 
@@ -134,11 +135,11 @@ function App() {
             </MainLayout>) :
             (<Navigate replace to={"/"} />)
         } />
-        {/* <Route path="/recovery" element={
-          <MainLayout>
+        <Route path="/recovery" element={
+          <MainLayout currentUser={currentUser} isMobile={isMobile}>
             <Recovery />
           </MainLayout>
-        } /> */}
+        } />
       </Routes>
     </div>
   );
