@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setCurrentUser } from "./redux/features/User/userSlice";
 import { Route, Routes, Navigate } from 'react-router-dom';
-import logo from './logo.svg';
 import MainLayout from './layout/MainLayout';
 import HomepageLayout from './layout/HomepageLayout';
 import Login from './pages/Login';
@@ -71,7 +72,6 @@ function useMobileState(isViewportSize: number[]): undefined | Boolean {
   return isMobile;
 }
 
-
 function App() {
   const isViewportSize = useResizeEvent();
   const isFormat = useFormatState(isViewportSize);
@@ -83,26 +83,32 @@ function App() {
     :
     (root.style.setProperty('--font-size', 10 + "px"))
 
-
   const [userState, setUserState] = useState<UserState>(initialState);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const authListener = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await handleUserProfile(userAuth);
         userRef?.onSnapshot(snapshot => {
-          setUserState({
-            currentUser: {
-              id: snapshot.id,
-              ...snapshot.data()
-            }
-          })
+          dispatch(setCurrentUser({
+            id: snapshot.id,
+            ...snapshot.data()
+          }))
+          // slice.actions.todoAdded)
+          // setUserState({
+          //   currentUser: {
+          //     id: snapshot.id,
+          //     ...snapshot.data()
+          //   }
+          // })
         })
       }
 
-      setUserState({
-        ...initialState
-      });
+      dispatch(setCurrentUser(userAuth))
+      // setUserState({
+      //   ...initialState
+      // });
     });
   }, []);
 

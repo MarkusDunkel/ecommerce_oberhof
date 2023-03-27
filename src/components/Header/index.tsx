@@ -1,4 +1,6 @@
 import React, { ReactNode } from 'react';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../../redux/store';
 import './styles.scss';
 import Logo from './../../assets/logo.png';
 import { Link } from 'react-router-dom';
@@ -11,8 +13,10 @@ interface HeaderProps {
     children: ReactNode;
 }
 
+const selectCurrentUser = (state: RootState) => state.user.currentUser
+
 const Header = (props: HeaderProps) => {
-    const { currentUser } = props;
+    const currentUser = useSelector(selectCurrentUser);
     const { shopLink } = props || { shopLink: false };
     const { isMobile } = props;
 
