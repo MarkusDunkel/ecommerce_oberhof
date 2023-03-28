@@ -13,10 +13,10 @@ interface HeaderProps {
     children: ReactNode;
 }
 
-const selectCurrentUser = (state: RootState) => state.user.currentUser
+const selectCurrentUser = (state: RootState) => state.user
 
 const Header = (props: HeaderProps) => {
-    const currentUser = useSelector(selectCurrentUser);
+    const currentUser = useSelector(selectCurrentUser).currentUser;
     const { shopLink } = props || { shopLink: false };
     const { isMobile } = props;
 

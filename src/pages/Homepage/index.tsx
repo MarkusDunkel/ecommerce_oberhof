@@ -66,12 +66,7 @@ const Homepage = ({ isFormat, isViewportSize }: HomepageProps) => {
         top = tops[3];
     }
 
-    console.log('isFormat', isFormat);
-
     const fontSize = `${Math.sqrt(isViewportSize[0] * isViewportSize[1] * 0.01)}px`;
-
-    console.log('fontsize', fontSize);
-
 
     return (
         <section className="homepage">

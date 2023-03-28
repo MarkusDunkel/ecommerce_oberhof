@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentUser } from "./redux/features/User/userSlice";
 import { Route, Routes, Navigate } from 'react-router-dom';
 import MainLayout from './layout/MainLayout';
@@ -11,10 +11,13 @@ import './default.scss';
 import Homepage from './pages/Homepage';
 import Shop from './pages/Shop';
 import Recovery from './pages/Recovery';
+import { RootState } from './redux/store';
 
-const initialState = { currentUser: null };
+const selectCurrentUser = (state: RootState) => state.user
 
-interface UserState { currentUser: null | any };
+// const initialState = { currentUser: null };
+
+// interface UserState { currentUser: null | any };
 
 const isViewportWidthInitial = window.innerWidth;
 const isViewportHeightInitial = window.innerHeight
@@ -83,14 +86,16 @@ function App() {
     :
     (root.style.setProperty('--font-size', 10 + "px"))
 
-  const [userState, setUserState] = useState<UserState>(initialState);
+  // const [userState, setUserState] = useState<UserState>(initialState);
   const dispatch = useDispatch();
 
   useEffect(() => {
     const authListener = auth.onAuthStateChanged(async userAuth => {
+      console.log('Auth state has changed');
       if (userAuth) {
         const userRef = await handleUserProfile(userAuth);
         userRef?.onSnapshot(snapshot => {
+          console.log('snapshot_data', snapshot.data());
           dispatch(setCurrentUser({
             id: snapshot.id,
             ...snapshot.data()
@@ -105,15 +110,17 @@ function App() {
         })
       }
 
-      dispatch(setCurrentUser(userAuth))
+      dispatch(setCurrentUser(null))
       // setUserState({
       //   ...initialState
       // });
     });
-  }, []);
+  }, [dispatch]);
 
-  const currentUser = userState['currentUser'];
-  console.log(currentUser);
+
+  const currentUser = useSelector(selectCurrentUser).currentUser;
+  // const currentUser = userState['currentUser'];
+  console.log('current User', currentUser);
 
   return (
     <div className="App">
