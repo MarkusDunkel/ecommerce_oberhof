@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentUser } from "./redux/features/User/userSlice";
+import { setUser } from "./redux/features/User/userSlice";
 import { Route, Routes, Navigate } from 'react-router-dom';
 import MainLayout from './layout/MainLayout';
 import HomepageLayout from './layout/HomepageLayout';
@@ -96,7 +96,7 @@ function App() {
         const userRef = await handleUserProfile(userAuth);
         userRef?.onSnapshot(snapshot => {
           console.log('snapshot_data', snapshot.data());
-          dispatch(setCurrentUser({
+          dispatch(setUser({
             id: snapshot.id,
             ...snapshot.data()
           }))
@@ -110,15 +110,15 @@ function App() {
         })
       }
 
-      dispatch(setCurrentUser(null))
+      dispatch(setUser(null))
       // setUserState({
       //   ...initialState
       // });
     });
-  }, [dispatch]);
+  }, []);
 
 
-  const currentUser = useSelector(selectCurrentUser).currentUser;
+  const currentUser = useSelector(selectCurrentUser).id;
   // const currentUser = userState['currentUser'];
   console.log('current User', currentUser);
 

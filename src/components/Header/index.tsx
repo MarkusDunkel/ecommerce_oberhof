@@ -16,7 +16,9 @@ interface HeaderProps {
 const selectCurrentUser = (state: RootState) => state.user
 
 const Header = (props: HeaderProps) => {
-    const currentUser = useSelector(selectCurrentUser).currentUser;
+    const currentUser = useSelector(selectCurrentUser).id;
+
+    console.log('current user in header', currentUser);
     const { shopLink } = props || { shopLink: false };
     const { isMobile } = props;
 
