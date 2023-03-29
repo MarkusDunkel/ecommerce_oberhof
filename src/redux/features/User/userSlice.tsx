@@ -17,15 +17,16 @@ export const userSlice = createSlice({
             const userData = action.payload
             console.log('userData', userData);
             if (userData) {
-                console.log('inside');
                 state.id = userData.id
                 state.displayName = userData.displayName
                 state.email = userData.email
+                state.createdDate = userData.createdDate
             }
             else {
                 state.id = null
                 state.displayName = null
                 state.email = null
+                state.createdDate = null
             };
         }
     }

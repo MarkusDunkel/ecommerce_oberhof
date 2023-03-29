@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import { auth } from '../../firebase/utils';
 
 interface HeaderProps {
-    currentUser: null | string;
     isMobile?: undefined | Boolean;
     shopLink?: Boolean;
     children: ReactNode;
@@ -18,7 +17,6 @@ const selectCurrentUser = (state: RootState) => state.user
 const Header = (props: HeaderProps) => {
     const currentUser = useSelector(selectCurrentUser).id;
 
-    console.log('current user in header', currentUser);
     const { shopLink } = props || { shopLink: false };
     const { isMobile } = props;
 
@@ -91,10 +89,6 @@ const Header = (props: HeaderProps) => {
             </header >
         </div>
     )
-}
-
-Header.defaultProps = {
-    currentUser: null
 }
 
 export default Header;

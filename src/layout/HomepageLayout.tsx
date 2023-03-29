@@ -2,7 +2,6 @@ import React, { ReactNode } from 'react';
 import Header from './../components/Header';
 
 interface HomepageLayoutProps {
-    currentUser: null | string;
     isMobile: undefined | Boolean;
     children: ReactNode;
 }
