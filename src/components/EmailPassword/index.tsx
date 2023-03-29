@@ -14,14 +14,14 @@ const initialState = {
 
 };
 
-interface StateTypes {
+interface EmailPasswordState {
     email: string;
     errors: string[];
 };
 
 const EmailPassword = () => {
 
-    const [state, setState] = useState<StateTypes>(initialState);
+    const [state, setState] = useState<EmailPasswordState>(initialState);
     const history = useNavigate();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,7 +82,7 @@ const EmailPassword = () => {
                         name="email"
                         value={state.email}
                         placeholder="Email"
-                        onChange={handleChange}
+                        handleChange={handleChange}
                     />
 
                     <Button type="submit">

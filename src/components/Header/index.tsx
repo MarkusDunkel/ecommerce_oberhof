@@ -8,7 +8,6 @@ import { auth } from '../../firebase/utils';
 
 interface HeaderProps {
     isMobile?: undefined | Boolean;
-    shopLink?: Boolean;
     children: ReactNode;
 }
 
@@ -17,7 +16,6 @@ const selectCurrentUser = (state: RootState) => state.user
 const Header = (props: HeaderProps) => {
     const currentUser = useSelector(selectCurrentUser).id;
 
-    const { shopLink } = props || { shopLink: false };
     const { isMobile } = props;
 
     let logoWidth = (isMobile) ? '100px' : '130px';
@@ -38,21 +36,24 @@ const Header = (props: HeaderProps) => {
 
                         {currentUser && (
                             <ul>
-                                {shopLink && (
-                                    <li>
-                                        <div className='positionButton'>
-                                            <Link to="/shop/">
-                                                <div className='fancyButton'>
-                                                    Bestellen
-                                                </div>
-                                            </Link>
-                                        </div>
-                                    </li>
+                                <li>
+                                    <div className='positionButton'>
+                                        <Link to="/shop/">
+                                            <div className='fancyButton'>
+                                                Bestellen
+                                            </div>
+                                        </Link>
+                                    </div>
+                                </li>
 
-                                )}
+                                <li>
+                                    <Link to="/dashboard">
+                                        My Account
+                                    </Link>
+                                </li>
                                 <li>
                                     <span onClick={() => auth.signOut()}>
-                                        LogOut
+                                        Logout
                                     </span>
                                 </li>
                             </ul>
@@ -60,17 +61,15 @@ const Header = (props: HeaderProps) => {
 
                         {!currentUser && (
                             <ul>
-                                {shopLink && (
-                                    <li>
-                                        <div className='positionButton'>
-                                            <Link to="/shop/">
-                                                <div className='fancyButton'>
-                                                    Bestellen
-                                                </div>
-                                            </Link>
-                                        </div>
-                                    </li>
-                                )}
+                                <li>
+                                    <div className='positionButton'>
+                                        <Link to="/shop/">
+                                            <div className='fancyButton'>
+                                                Bestellen
+                                            </div>
+                                        </Link>
+                                    </div>
+                                </li>
                                 <li>
                                     <Link to="/registration">
                                         Register

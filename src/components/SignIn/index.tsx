@@ -1,12 +1,13 @@
-import React, { Component, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './styles.scss';
 import Buttons from './../forms/Button';
 import { signInWithGoogle, auth } from './../../firebase/utils';
-
+import { useSelector } from 'react-redux';
 import AuthWrapper from './../AuthWrapper/'
 import FormInput from '../forms/FormInput';
 import Button from './../forms/Button';
+import { RootState } from '../../redux/store';
 
 const initialState = {
     email: '',
@@ -20,8 +21,24 @@ interface Credentials {
 
 interface SignInProps { };
 
+const selectCurrentUser = (state: RootState) => state.user
+
 const SignIn = (props: SignInProps) => {
+    const currentUser = useSelector(selectCurrentUser).id;
+
     const [credentials, setCredentials] = useState<Credentials>(initialState);
+    const history = useNavigate();
+
+    useEffect(() => {
+        if (currentUser) {
+            setCredentials({
+                ...initialState
+            });
+            history("/");
+        }
+
+    }, [currentUser]);
+
 
     const handleChange = (e: any) => {
         const { name, value } = e.target;
@@ -42,6 +59,7 @@ const SignIn = (props: SignInProps) => {
             setCredentials({
                 ...initialState
             });
+            history("/");
         } catch (err) {
             // console.log(err)
         }

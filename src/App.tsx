@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from "./redux/features/User/userSlice";
-import { Route, Routes, Navigate } from 'react-router-dom';
-import MainLayout from './layout/MainLayout';
-import HomepageLayout from './layout/HomepageLayout';
-import Login from './pages/Login';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import Registration from './components/Registration';
-import { auth, handleUserProfile } from './firebase/utils';
-import './default.scss';
-import Homepage from './pages/Homepage';
-import Shop from './pages/Shop';
-import Recovery from './pages/Recovery';
-import { RootState } from './redux/store';
 import { useFormatState, useMobileState, useResizeEvent } from './customHooks';
+import './default.scss';
+import { auth, handleUserProfile } from './firebase/utils';
+import WithAuth from './hoc/withAuth';
+import HomepageLayout from './layout/HomepageLayout';
+import MainLayout from './layout/MainLayout';
+import Homepage from './pages/Homepage';
+import Login from './pages/Login';
+import Recovery from './pages/Recovery';
+import Dashboard from './pages/Dashboard';
+import Shop from './pages/Shop';
+import { setUser } from "./redux/features/User/userSlice";
+import { RootState } from './redux/store';
+
 
 const selectCurrentUser = (state: RootState) => state.user
 
@@ -46,10 +49,16 @@ const App = () => {
       }
       dispatch(setUser(null))
     });
+
+    return () => {
+      authListener();
+    };
   }, []);
 
 
   const currentUser = useSelector(selectCurrentUser).id;
+
+  console.log('Current user', currentUser);
 
   return (
     <div className="App">
@@ -60,27 +69,33 @@ const App = () => {
           </HomepageLayout>
         )} />
         <Route path="/shop" element={(
-          <MainLayout isMobile={isMobile}>
-            <Shop />
-          </MainLayout>
+          <WithAuth>
+            <MainLayout isMobile={isMobile}>
+              <Shop />
+            </MainLayout>
+          </WithAuth>
         )} />
         <Route path="/registration" element={
-          currentUser ? (<Navigate replace to={"/"} />) :
-            (<MainLayout isMobile={isMobile}>
-              <Registration />
-            </MainLayout>)
+          <MainLayout isMobile={isMobile}>
+            <Registration />
+          </MainLayout>
         } />
         <Route path="/login" element={
-          !currentUser ?
-            (<MainLayout isMobile={isMobile}>
-              <Login />
-            </MainLayout>) :
-            (<Navigate replace to={"/"} />)
+          <MainLayout isMobile={isMobile}>
+            <Login />
+          </MainLayout>
         } />
         <Route path="/recovery" element={
           <MainLayout isMobile={isMobile}>
             <Recovery />
           </MainLayout>
+        } />
+        <Route path="/dashboard" element={
+          <WithAuth>
+            <MainLayout isMobile={isMobile}>
+              <Dashboard />
+            </MainLayout>
+          </WithAuth>
         } />
       </Routes>
     </div>

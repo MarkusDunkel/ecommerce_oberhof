@@ -6,10 +6,9 @@ interface HomepageLayoutProps {
     children: ReactNode;
 }
 const HomepageLayout = (props: HomepageLayoutProps) => {
-    const shopLink = true;
     return (
         <div className="fullHeight">
-            <Header {...props} shopLink={shopLink} isMobile={props.isMobile} />
+            <Header {...props} isMobile={props.isMobile} />
             {props.children}
             {/* <Footer /> */}
         </div >

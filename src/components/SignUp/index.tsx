@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import './styles.scss';
 
 import { auth, handleUserProfile } from './../../firebase/utils';
@@ -6,6 +7,8 @@ import { auth, handleUserProfile } from './../../firebase/utils';
 import AuthWrapper from './../AuthWrapper';
 import FormInput from './../../components/forms/FormInput';
 import Button from './../../components/forms/Button';
+import { useNavigate } from 'react-router-dom';
+import { RootState } from '../../redux/store';
 
 interface InputData {
     displayName: string;
@@ -22,10 +25,13 @@ const initialState = {
     confirmPassword: '',
     errors: []
 }
+const selectCurrentUser = (state: RootState) => state.user
 
 const Signup = () => {
+    const currentUser = useSelector(selectCurrentUser).id;
 
     const [inputData, setInputData] = React.useState<InputData>(initialState);
+    const history = useNavigate();
 
     const reset = () => {
         setInputData(
@@ -33,6 +39,14 @@ const Signup = () => {
                 ...initialState
             })
     };
+
+    useEffect(() => {
+        if (currentUser) {
+            reset();
+            history("/");
+        }
+
+    }, [currentUser]);
 
     function handleChange(e: any) {
         const { name, value } = e.target;
@@ -62,6 +76,8 @@ const Signup = () => {
 
             await handleUserProfile(user, { displayName });
             reset();
+            history("/");
+
         } catch (err) {
             // console.log(err);
         }
