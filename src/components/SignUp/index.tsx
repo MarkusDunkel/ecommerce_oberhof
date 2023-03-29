@@ -24,16 +24,15 @@ const initialState = {
 }
 
 const Signup = () => {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         ...initialState
-    //     };
-
-    //     this.handleChange = this.handleChange.bind(this);
-    // }
 
     const [inputData, setInputData] = React.useState<InputData>(initialState);
+
+    const reset = () => {
+        setInputData(
+            {
+                ...initialState
+            })
+    };
 
     function handleChange(e: any) {
         const { name, value } = e.target;
@@ -62,11 +61,7 @@ const Signup = () => {
             const { user } = await auth.createUserWithEmailAndPassword(email, password);
 
             await handleUserProfile(user, { displayName });
-
-            setInputData(
-                {
-                    ...inputData
-                })
+            reset();
         } catch (err) {
             // console.log(err);
         }
@@ -99,28 +94,28 @@ const Signup = () => {
                         name="displayName"
                         value={displayName}
                         placeholder="Full name"
-                        onChange={handleChange}
+                        handleChange={handleChange}
                     />
                     <FormInput
                         type="email"
                         name="email"
                         value={email}
                         placeholder="Email"
-                        onChange={handleChange}
+                        handleChange={handleChange}
                     />
                     <FormInput
                         type="password"
                         name="password"
                         value={password}
                         placeholder="Password"
-                        onChange={handleChange}
+                        handleChange={handleChange}
                     />
                     <FormInput
                         type="password"
                         name="confirmPassword"
                         value={confirmPassword}
                         placeholder="ConfirmPassword"
-                        onChange={handleChange}
+                        handleChange={handleChange}
                     />
 
                     <Button type="submit">
