@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-// import { isFormatInitial, isViewportHeightInitial, isViewportWidthInitial } from "../App";
 
 const isViewportWidthInitial = window.innerWidth;
 const isViewportHeightInitial = window.innerHeight
