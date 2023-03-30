@@ -3,7 +3,7 @@ import './styles.scss';
 
 interface FormInputProps extends React.ComponentPropsWithoutRef<"input"> {
     label?: string;
-    handleChange?: (e: any) => void;
+    handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const FormInput = ({ handleChange, label, ...otherProps }: FormInputProps) => {

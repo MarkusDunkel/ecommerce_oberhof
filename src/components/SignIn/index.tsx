@@ -40,7 +40,7 @@ const SignIn = (props: SignInProps) => {
     }, [currentUser]);
 
 
-    const handleChange = (e: any) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setCredentials(
             {
@@ -50,7 +50,7 @@ const SignIn = (props: SignInProps) => {
         );
     }
 
-    const handleSubmit = async (e: any) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const { email, password } = credentials;
 
